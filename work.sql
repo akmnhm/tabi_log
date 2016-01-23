@@ -1,25 +1,37 @@
 CREATE TABLE user (
        uid int PRIMARY KEY,
        name text NOT NULL,
+       icon text,
        password text NOT NULL
+);
+
+CREATE TABLE city (
+       city_num int PRIMARY KEY,
+       city_name text
+);
+
+CREATE TABLE prefecture (
+       pref_num int PRIMARY KEY,
+       pref_name text
 );
 
 CREATE TABLE post(
        uid references user(uid),
        pid int PRIMARY KEY, 		 
        title text NOT NULL, 
-       area text NOT NULL, 
-       country text NOT NULL, 
-       prefecture text, 
+       city_num references city(city_num), 
+       pref_num references prefecture(pref_num), 
        contents text,
        category text NOT NULL, 
        image text,
-       rating int);
+       rating int,
+       datetime int);
 
 CREATE TABLE review (
        uid references user(uid),
        pid references post(pid),
        rid int,
+       title text,
        comment text,
        rating int,
        datatime int,
@@ -44,14 +56,67 @@ CREATE TABLE image4review(
 
 
 
-insert into user(uid, name, password) 
-       	    	   values(1320533, 'Haruka', '1233'),
-	                 (1320526, 'Mariko', '1233'),
-		         (1320512, 'Aya', '1233');
 
-insert into post(uid, pid, title, area, country, prefecture, contents, category, image, rating)
-       	    	   values(1320526, 1, '神岡', 'アジア', '日本', '岐阜県', '私の故郷の神岡をご紹介します。神岡は岐阜県の北の奥飛騨にあります。ニュートリノの実験施設のスーパーカミオカンデで有名です。壮大な自然に囲まれていて、空気がきれいです。また、とにかく食べ物がおいしいです。野菜や果物は、みずみずしい！飛騨牛は最高です。', '自然', 'image/1.jpg', 4),
-       	 	         (1320526, 2, '万平ホテル', 'アジア', '日本', '軽井沢', 'ジョンレノンも愛したロイヤルミルクティーです！', 'カフェ', 'image/2.jpg', 5),
+
+insert into prefecture(pref_num, pref_name)
+       values(1, '北海道'),
+             (2, '青森県'),
+	     (3, '岩手県'),
+	     (4, '宮城県'),
+	     (5, '秋田県'),
+	     (6, '山形県'),
+	     (7, '福島県'),
+	     (8, '茨城県'),
+	     (9, '栃木県'),
+	     (10, '群馬県'),
+	     (11, '埼玉県'),
+	     (12, '千葉県'),
+	     (13, '東京都'),
+	     (14, '神奈川県'),
+	     (15, '新潟県'),
+	     (16, '富山県'),
+	     (17, '石川県'),
+	     (18, '福井県'),
+	     (19, '山梨県'),
+	     (20, '長野県'),
+	     (21, '岐阜県'),
+	     (22, '静岡県'),
+	     (23, '愛知県'),
+	     (24, '三重県'),
+	     (25, '滋賀県'),
+	     (26, '京都府'),
+	     (27, '大阪府'),
+	     (28, ''),
+	     (29, ''),
+	     (30, ''),
+	     (31, ''),
+	     (32, ''),
+	     (33, ''),
+	     (34, ''),
+	     (35, ''),
+	     (36, ''),
+	     (37, ''),
+	     (38, ''),
+	     (39, ''),
+	     (40, ''),
+	     (41, ''),
+	     (42, ''),
+	     (43, ''),
+	     (44, ''),
+	     (45, ''),
+	     (46, ''),
+	     (47, '');
+
+
+
+insert into user(uid, name, icon, password) 
+       	    	   values(1320533, 'Haruka', 'uimg/haruka.jpg', '1233'),
+	                 (1320526, 'Mariko', 'uimg/mariko.jpg', '1233'),
+		         (1320512, 'Aya', 'uimg/aya.jpg', '1233');
+
+insert into post(uid, pid, title, city, prefecture, contents, category, image, rating, datetime)
+       values(1320526, 1, '神岡', '飛騨', '岐阜県', '私の故郷の神岡をご紹介します。神岡は岐阜県の北の奥飛騨にあります。ニュートリノの実験施設のスーパーカミオカンデで有名です。壮大な自然に囲まれていて、空気がきれいです。また、とにかく食べ物がおいしいです。野菜や果物は、みずみずしい！飛騨牛は最高です。', '自然', 'pimg/1.jpg', 4),  
+             (1320526, 2, '万平ホテル', '中部', '長野県', 'ジョンレノンも愛したロイヤルミルクティーです！', 'カフェ', 'image/2.jpg', 5),
         		 (1320526, 3, 'ルーブル美術館', 'ヨーロッパ', 'フランス', 'パリ', 'モナリザがいました。奇麗でした。', '美術館', 'image/3.jpg', 5),
 			 (1320526, 4, '焼き肉岡半', 'アジア', '日本', '銀座', 'カルビ最高です。絶品', 'レストラン', 'image/4.jpg', 4),
 			 (1320512, 5, '東京ディズニーリゾート', 'アジア', '日本', '東京都', 'ねずみの王国です。', '楽しいところ', 'image/5.jpg', 500),
