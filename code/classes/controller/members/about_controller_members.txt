@@ -1,0 +1,3 @@
+// APPPATH/classes/controller/members
+// にはログイン済みの者のみしかアクセスできないファイルを入れる
+// クラスの名前はController_Members_*
