@@ -1,0 +1,7 @@
+// Debug　集
+
+- Exception [ Error ]:
+  File X does not contain class hoge
+
+1. calss名が間違っている
+2. controllerコードの終始に <? php ... ?> をいれていない

@@ -1,0 +1,52 @@
+controller
+ L login.php
+ L members.php
+ L members //会員のみしかアクセスできないファイル
+
+*********** members.php ************
+<?php
+
+ class Controller_Members extends Controller 
+{
+	public function before()
+	{ 
+	if(!Auth::check()) {
+	Response::redirect('http://../login'); 
+	  // ^ 認証済みでないならloginページにとぶ。
+	}	
+}
+************************************
+************ login.php +************
+<? php
+
+class Controller_Login extends Controller
+{
+	public function action_index()
+	{
+	 //login 処理
+ 	}
+}
+************************************
+********* members/*.php +***********
+ex)
+<? php
+
+class Controller_Members_Postentry 
+      extends Controller_Members 
+{
+	// ...
+}
+}
+  // Controller_Membersを継承することで
+  // beforeメソッドも毎度実行
+  // 認証してないなら、loginページに飛ぶようになる。
+************************************
+
+
+
+view
+ L template.php
+********* template.php +***********
+tabi_log のテンプレート
+***********************************
+
