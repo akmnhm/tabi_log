@@ -49,4 +49,17 @@ view
 ********* template.php +***********
 tabi_log のテンプレート
 ***********************************
+>>>>>>>>このテンプレートを使うには、>>
 
+ex) Controller/example.php タイトルがabc、
+    template内に表示させたいviewがmembers/index.phpである場合
+class Controller_Example extends Controller_Template
+{
+	public function action_index()
+	{
+
+	$this->template->title = 'abs';
+	$this->template->content = View::forge('members/index');
+ 	}
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
