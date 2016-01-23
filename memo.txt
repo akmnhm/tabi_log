@@ -63,3 +63,12 @@ class Controller_Example extends Controller_Template
  	}
 }
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+assets
+ L img
+    L fimg //ウェブページのデザインにつかうもの
+    L uimg //userのアイコン画像
+    L pimg //postの写真
+    L rimg //reviewの写真
+
