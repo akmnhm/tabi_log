@@ -1,0 +1,93 @@
+// まりこさんの本から、汎用性高そうな箇所や
+// 注意すべきと思われる箇所を抜粋します。
+// fuelphpにうまくおつきあいしていこうという気持ち。
+// まりこさん、本ありがとう。
+
+//Controller 側
+public function action_index() {
+       $data = array();
+       $data['name'] = 'ABS';
+       return View::forge('members/top', $data);
+}
+
+//Controller 側2
+public function action_index() {
+       $view = View::forge('members/top');
+       $view->name = 'ABS';
+       return $view;
+}
+
+//Controller 側3
+public function action_index() {
+       $view = View::forge('members/top');
+       $view->set('name', 'ABS');
+       return $view;
+}
+
+
+//View側
+<h1>ようこそ、<?php echo $name; ?>さん</h1>
+
+
+
+//Controller 側
+public function action_index() {
+       $view = View::forge('members/top');
+       $members = array();
+       $members[] = array('id'=>1, 'name'=>'ABS');
+       $members[] = array('id'=>2, 'name'=>'ABS');
+       $members[] = array('id'=>3, 'name'=>'ABS');
+       $view->set('members', $members);
+       retunr $view;
+}
+//View側
+<?php foreach($members as $member): ?>
+      <tr>
+      <td><?php echo sprintf("%05d", $members['id']); ?>
+          <?php echo $members['name']; ?></td>
+	</tr>
+<?php endforeach; ?>
+
+
+//番外篇 サニタイジング
+//ユーザがjavascript等のコードを入れたものをそのままehcoで出力すると
+//<SCRIPT Language="JavaScript">alert("びっくり！");</SCRIPT>
+//実際にアラートがでてしまうことに注意(とくにDB挿入時)
+// サニタイジング >>
+// http://itpro.nikkeibp.co.jp/article/MAG/20061122/254548/
+// cf) SQL injection ..
+$view = View::forge('members/top', array(), false);
+$view->title = '<h1>メンバーページへようこそ！</h1>'
+return $view;
+
+$view = View::forge('members/top');
+$view->title = '<f>';
+$view->auto_filter(false);
+return $view;
+
+
+//Assetsのすすめ
+// img等の外部ファイルは全てAssetsにいれること
+// http://localhost/example
+// 例えば <img src="./img/a.jpg">
+// とすれば localhost/example/img/a.jpgへのアクセスが成功するが
+// http://localhost/example/
+// としたとき、 localhost/example//img/a.jpg にアクセスして
+// 画像の表示がされなかったりする。
+// これを回避するため、Assetsを推奨。
+Assets::imag($1, $2, $3)
+memo-> 一度に出力するならrendar
+memo-> リソースがなくてもエラーをださない処理 p.74
+
+
+
+//Presenterのすすめ
+// viewはdraw関数
+// 例えば 北海道を 0、青森を 1
+// とするなら、変換する作業が必要だが、
+// viewは表示するだけにすべき。
+// そんなような作業をpresenterに担わせる。
+
+//pagenation p.118
+
+// postメソッドの脆弱性
