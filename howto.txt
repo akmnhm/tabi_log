@@ -49,6 +49,19 @@ public function action_index() {
 <?php endforeach; ?>
 
 
+//Model_Crud クラス p85-p90
+//データの検証ができる p90
+Model_Crud を継承したクラスで、$_rulesプロパティにデータ検証規則の配列を指定しておくと、save()メソッド実行前に自動的に検証が行われる。
+(例: ユーザ登録で、名前必須、email必須でかつ有効なメールアドレスの形式でなければならない、などというのを検証できる。)
+//静的メソッド
+forge(): インスタンスの作成
+find_all(): 全データの取得
+全レコード取得。各レコードのデータをオブジェクトに格納し、そのオブジェクトの配列を返す。
+find_by_pk(): 主キーによるデータの取得
+find(): 条件を指定したデータの取得
+save(): データの保存
+delete(): データの削除
+
 //番外篇 サニタイジング
 //ユーザがjavascript等のコードを入れたものをそのままehcoで出力すると
 //<SCRIPT Language="JavaScript">alert("びっくり！");</SCRIPT>
@@ -81,7 +94,7 @@ memo-> リソースがなくてもエラーをださない処理 p.74
 
 
 
-//Presenterのすすめ
+//Presenterのすすめ p90
 // viewはdraw関数
 // 例えば 北海道を 0、青森を 1
 // とするなら、変換する作業が必要だが、
@@ -93,3 +106,18 @@ memo-> リソースがなくてもエラーをださない処理 p.74
 // postメソッドの脆弱性
 
 //認証とセッション管理: p184-p220
+
+
+//phpの基本的なこと
+//クラスorプロパティのアクセス権 
+http://php.net/manual/ja/language.oop5.visibility.php
+
+public宣言されたメンバーには、どこからでもアクセス可能。
+protected 宣言されたメンバーには、 そのクラス自身とそのクラスを継承したクラスからのみアクセス可能。
+private 宣言されたメンバーには、そのメンバーを定義したクラスからのみアクセス可能。
+
+
+//パスの書き方
+URLが
+http://localhost/~marikonakagawa/courseMngr/members/userpg/postlist/index
+のときコントローラのクラスは Controller_Members_Userpg_Postlist で、メソッド名は action_index()
