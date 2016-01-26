@@ -1,184 +1,21 @@
-<html>
-  <head>
-    <?php echo Asset::css("smalltable.css"); ?>
-  </head>
-  <body>
+<?php
 
-    <?php echo $username."->".$pagename; ?><br>
+class Controller_Members_Userpg_Postlist extends Controller_Template
+{
 
-    <table class="topic">
-      <tr><td class="line"></td></tr>
-      <tr><td class="content">青森県</td></tr>
-    </table>
+	public $template = 'template';
 
-    <table class="minilst"><tr><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>
-	  <!--  ----- -->
-	</td><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>	  <!-- ------ -->
-    </td></tr></table>
+	public function action_index()
+	{
+	$this->template = View::forge('members/userpg/userpg_template');
+	$this->template->title = '旅ログ - ユーザーページ';
+	$this->template->username = '晴香';
+	$this->template->pagename = 'ポスト一覧';
+	$data = array();
+	$data['username'] = '晴香';
+	$data['pagename'] = 'ポスト一覧';
+	$this->template->content = View::forge('members/userpg/postlist', $data);
+	}
 
-    <table class="topic">
-      <tr><td class="line"></td></tr>
-      <tr><td class="content">埼玉県</td></tr>
-    </table>
-
-    <table class="minilst"><tr><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>	  <!-- 1 ----- -->
-	</td><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>
-	  <!-- ------ -->
-      </td></tr><tr><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>
-	  <!-- ----- --->
-	</td><!-- ここからダミー--> <td></td><!-- ダミー終わり--></tr></table> <!-- 奇数の場合はダミーのtdをいれる-->
-
-    <table class="topic">
-      <tr><td class="line"></td></tr>
-      <tr><td class="content">鹿児島県</td></tr>
-    </table>
-
-
-    <table class="minilst"><tr><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>
-	  <!-- 1 ----- -->
-	</td><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>
-	  <!-- ------ -->
-      </td></tr><tr><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>
-	  <!-- 1 ----- -->
-	</td><td>
-	  <!-- 1 post -->
-	  <table class="mini"><tr><td>
-		<table class="minitop" ><tr><th rowspan="4" valign="top">
-		      <table class="icon"><tr><td>
-			    <?php 
-			       $options = array('width' => '50', 'height' => '50');
-			    echo Asset::img("uimg/hiraizumi.jpg", $options); ?>
-		      </td></tr></table>
-		    </th><td><a href="#"><romitt>平泉</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt>自然にふれる</romitt></td></tr>
-		  <tr><td valign="top"><romitt>寺・yamayamayamでっでfrっfrっっfっrfrfでd</romitt></td></tr>
-		  <tr><td valign="top">☆☆☆☆☆</td></tr>
-	    </table></td></tr><tr>
-	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt>title/title/title/title/title</omitt></td></tr></table>
-
-    </td></tr></table>
-    
-    <br>
-  </body>
-</html>
+}
+?>

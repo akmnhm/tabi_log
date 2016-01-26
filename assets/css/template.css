@@ -59,6 +59,7 @@ div#body-main{
    footer
    +++++++++++++++++++++++++++++++  */
 div#footer{
+    margin-top: 50px;
     clear:both;
     padding-left:70px;
     height:auto;
