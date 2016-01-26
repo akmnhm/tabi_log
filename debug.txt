@@ -8,3 +8,15 @@
 3. 編集している途中でディレクトリとか作った関係でファイルのパスとURLのパスが矛盾してしまっている
 
 
+- Fieldset を使えるようにする
+APPPATH/config/config.php 内で
+'whitelisted_classes' => array(
+			'Fuel\\Core\\Presenter',
+			'Fuel\\Core\\Response',
+			'Fuel\\Core\\View',
+			'Fuel\\Core\\ViewModel',
+			'Closure',
+                        'Fuel\\Core\\Fieldset',
+	        	),
+というように'Fuel\\Core\\Fieldset',を付け加える。
+
