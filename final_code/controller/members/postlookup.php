@@ -16,7 +16,7 @@ class Controller_Members_PostLookup extends Controller_Template
   	  // login画面に戻る。
 	} else {
 	  $this->viewer_info['name'] = Auth::get_screen_name();
-	  $this->viewer_info['uid'] = Auth::get_user_id();
+	  $this->viewer_info['uid'] = Auth::get_user_id()[1];
 
 	}
 
@@ -45,14 +45,73 @@ class Controller_Members_PostLookup extends Controller_Template
 
 	$ret = Model_Members_General::getPostHeader($pid);
 	$first = array_shift($ret);
+
+    if(Input::method() == 'POST'){
+        /*--------
+          ユーザが入力した値とその時の時刻を保持
+          ------*/
+        $first['input_title'] = Input::post('title');
+        $first['input_comment'] = Input::post('comment');
+        $first['input_rating'] = Input::post('rating');
+        $time = Date::forge()->get_timestamp();
+    }
+    /*-----------
+      Validationの準備
+      -----------*/
+    //Validationオブジェクトを呼び出す
+    $val = Validation::forge();
+    
+    //フォームのルール設定
+    $val->add('title', 'タイトル')
+        ->add_rule('required')
+        ->add_rule('max_length', 30);
+    $val->add('comment', 'コメント')
+        ->add_rule('required'); //コメントの長さ制限いる?
+    $val->add('rating', '評価')
+        ->add_rule('required');
+    
+    //Validationチェック
+    if($val->run()){
+        
+        /*------------
+          postされた各データをDBに保存
+          ----------------*/
+        $props = array(
+            'uid' => $this->viewer_info['uid'],
+            'pid' => $pid, 
+            'title' => $first['input_title'],
+            'comment' => $first['input_comment'],
+            'rating' => $first['input_rating'],
+            'datetime' => $time,
+        );
+        
+        //モデルオブジェクト作成
+        $new = Model_Review::forge();
+        $new->set($props);
+        
+        //データを保存する
+        if(!$new->save()){
+            //保存失敗
+            $data['save'] = '正しく投稿できませんでした。';
+        }else{
+            //保存成功
+            //$input_title, $input_comment, $input_rating を初期化
+            $first['input_title'] = '';
+            $first['input_comment'] = '';
+            $first['input_rating'] = 5.0;
+        }
+    }//$val->run()ここまで
+    //Validationオブジェクトをビューに渡す
+    $first['val'] = $val;
+    
 	$first['itta'] = Model_Members_General::countItta($pid);
 	$first['ikitai'] = Model_Members_General::countIkitai($pid);
 	$first['reviews'] = Model_Members_General::getReviews($pid);
 	$first['revnum'] = Model_Members_General::countReview($pid);
-
-	$this->template->content = View::forge('members/postlookuprev', $first);
+            
+    $this->template->content = View::forge('members/postlookuprev', $first);
 	}	
-
+    
 
 
 	public function action_ikitai($pid)
