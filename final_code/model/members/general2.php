@@ -61,6 +61,16 @@ EOM;
       $query->execute();
       return $sql;
      }
+      
+      public static function setUname($uid, $newname){
+          $sql=<<<EOM
+           update users set username = "{$newname}"
+           where id = '$uid'
+EOM;
+          $query = DB::query($sql);
+          $query->execute();
+          return $sql;
+      }
 }
 
 ?>
