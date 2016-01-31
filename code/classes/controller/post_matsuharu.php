@@ -132,7 +132,8 @@ class Controller_Members_Post2 extends Controller
             );
 
             //モデルオブジェクト作成
-            $new = Model_Post::forge($props);
+            $new = Model_Post::forge();
+            $new->set($props);
             
             //データを保存する
             if(!$new->save()){
