@@ -135,6 +135,60 @@ class Controller_Members_Userpg_Myself extends Controller_Template
     {
     $uid = $this->viewer_info['uid'];
     $uname = $this->viewer_info['name'];
+    $data = array();
+    
+    if(isset($_POST['ch_name'])){
+        //ユーザ名変更を試みる
+        $newname = Input::post('uname');
+        $data['newname'] = $newname;
+        Model_Members_General2::setUname($uid, $newname);
+        $uname = $newname;
+    }
+    if(isset($_POST['ch_image'])){
+        //アイコン画像変更を試みる
+        if(Input::file('upload.name')){ //アップロードされてるか
+            //アップロード用初期設定
+            $config = array(
+                'path' => DOCROOT.DS.'/assets/img/uimg',
+                'ext_whitelist' => array('img', 'jpg', 'jpeg', 'gif', 'png'),
+            );
+            //アップロード基本プロセス
+            Upload::process($config);
+            //検証
+            if(Upload::is_valid()){
+                //設定を元に保存
+                Upload::save();
+                //保存されたファイル名を変数に入れる
+                $getfile = Upload::get_files();
+                $upload_file = $getfile[0]['name'];
+            }else{
+                //ファイルがアップロードできなかったとき、
+                //エラーメッセージをセット
+                $upload_err = 'ファイルが正しくアップできませんでした。';
+                $data['upload_err'] = $upload_err;
+                $this->template = View::forge('members/userpg/userpg_myself_template');
+                $this->template->title = "旅ログ - ".$uname."さんのユーザ情報変更";
+                $this->template->username = $uname;
+                $this->template->icon = Model_Members_Userinfo::getIcon($uid);
+                $this->template->uid = $uid;
+                $this->template->pagename = $uname."さんのユーザ情報変更";
+                $this->template->page_num = 5;
+                
+                
+                $data['name'] = $uid;
+                $data['pagename'] = $uname."さんのユーザ情報変更";
+                $data['info'] = Model_Members_Userinfo::getInfo($uid);
+                $this->template->content = View::forge('members/userpg/change', $data);
+                return;
+                //var_dump($upload_err); exit;
+            }
+            //データベースに保存
+            Model_Members_General2::setProfile($uname, $upload_file);
+        }
+    }
+        
+        
+        
 
     $this->template = View::forge('members/userpg/userpg_myself_template');
     $this->template->title = "旅ログ - ".$uname."さんのユーザ情報変更";
@@ -144,7 +198,7 @@ class Controller_Members_Userpg_Myself extends Controller_Template
     $this->template->pagename = $uname."さんのユーザ情報変更";
     $this->template->page_num = 5;
 
-    $data = array();
+    
     $data['name'] = $uid;
     $data['pagename'] = $uname."さんのユーザ情報変更";
     $data['info'] = Model_Members_Userinfo::getInfo($uid);
