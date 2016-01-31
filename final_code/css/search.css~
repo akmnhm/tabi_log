@@ -1,0 +1,60 @@
+table.searchtbl {
+    width: 600px;
+    font-size: 10pt;
+    border: solid 7px #deb887;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 100px;
+    box-shadow: 10px 0px 10px 0px rgba(0,0,0,0.1) inset;
+}
+table.searchtbl td.title{
+    font-family:"Hiragino Kaku Gothic StdN";
+    font-size: 15pt;
+    text-align: center;
+    padding: 10px;
+}
+table.searchtbl td.line{
+    width: 100%;
+    height: 1px;
+    border-top: dashed 1px #deb887;
+}
+table.searchtbl td.sub{
+    width: 200px;
+    text-align: center;
+}
+table.searchtbl td.btw{
+    width: 1px;
+    border-left: solid 1px #deb887;
+}
+table.searchtbl td.odd{
+    background-color: #ffffe0;
+}
+.btn {
+    border: 1px solid #15aeec;
+    background-color: #49c0f0;
+    background-image: -webkit-linear-gradient(top, #49c0f0, #2cafe3);
+    background-image: linear-gradient(to bottom, #49c0f0, #2cafe3);
+    border-radius: 4px;
+    color: #fff;
+    line-height: 50px;
+    -webkit-transition: none;
+    transition: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    padding: 10px 40px;
+}
+.btn:hover {
+    border:1px solid #1090c3;
+    background-color: #1ab0ec;
+    background-image: -webkit-linear-gradient(top, #1ab0ec, #1a92c2);
+    background-image: linear-gradient(to bottom, #1ab0ec, #1a92c2);
+}
+.btn:active {
+    background: #1a92c2;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .2);
+    color: #1679a1;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, .5);
+}
+fieldset {
+    border: solid 0px #000;
+    
+}

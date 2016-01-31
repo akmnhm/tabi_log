@@ -1,0 +1,130 @@
+/* ****************** */
+/* css for post_lookup
+   /* ****************** */
+/* postlookuptop */
+body {
+    padding-left: 10px;
+}
+#menu {
+    height: 65px;
+    width: 700px;
+    border-top: solid 1px #d7d0b3;
+    border-bottom: solid 5px #7a7351;
+}
+.btn2 {
+    width: 100px;
+    text-align: center;
+    font-size: 12pt;
+    vertical-align: middle;
+}
+.btn2 a {
+    padding: 16px 0 0;
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+.btn2 a:hover {
+    color: #c4c4c4;
+    background-image: -webkit-linear-gradient(top, #e2e2d, #fff);
+    background-image: linear-gradient(to bottom, #e2e2d1, #fff);
+}
+.curr {
+    color: white;
+    background-color: #7a7351;
+}
+.not_curr {
+    color: #c4c4c4;
+    background-image: -webkit-linear-gradient(top, #fff, #e0f3ed);
+    background-image: linear-gradient(to bottom, #fff, #e0f3ed);
+}
+#midashi {
+    width: 700px;
+}
+#midashi td.title{
+    font-family:"Hiragino Kaku Gothic StdN";
+    font-size: 20pt;
+}
+#midashi td.line{
+    width: 100%;
+    height: 11px;
+    border-bottom: dashed 1px #000;
+    padding: 0 5px;
+}
+#post {
+
+}
+#post th.photo {
+    padding-right: 20px;
+}
+#post table.user {
+    
+}
+#content {
+    width: 370px;
+    font-size: 11pt;
+}
+/* postlookuprev */
+table.review {
+    width:500px;
+    border: solid 2px #ffffb7;
+    border-radius: 10px;
+    background-color: #ffffb7;
+    padding-bottom: 30px;
+    margin: 50px 0;
+}
+table.review th.icon{
+    border-right: solid 1px #000;
+    border-bottom: solid 1px #000;
+}
+table.review td.title{
+    width: 100%;
+    font-size: 12pt;
+    padding-left: 20px;
+}
+table.review td.name{
+    padding-left: 20px;
+    font-size: 12pt;
+}
+table.reviewmain {
+    padding:0;
+    margin:0;
+    width:100%;
+    background-color: #fff;
+    border: solid 1px #fff;
+    border-radius: 10px;
+}
+table.reviewmain td.date{
+    text-align: right;
+}
+table.reviewmain td.content{
+    font-size: 10pt;
+    padding-bottom: 20px;
+}
+table.counttbl {
+    font-size: 10pt;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table.users {
+    width:300px;
+    border: solid 2px #ffffb7;
+    border-radius: 10px;
+    background-color: #ffffb7;
+    padding-bottom: 10px;
+    margin-top: 50px; 
+}
+
+table.users th.icon{
+    border-right: solid 1px #000;
+    border-bottom: solid 1px #000;
+}
+table.users td.name{
+    font-size: 12pt;
+    padding-left: 5px;
+}
+table.addspace {
+    padding-top: 120px;
+    color: white;
+    font-size:1.5em;
+}

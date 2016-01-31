@@ -1,0 +1,70 @@
+/* +++++++++++++++++++++++++++++++
+   general design
+   +++++++++++++++++++++++++++++++  */
+html, body {
+    font-family:'Courier','Lucida Console',sans-serif;
+    font-size:8pt;
+    margin:0;
+    height:100%;
+}
+a {
+    text-decoration:none;
+    color:#0000ee;
+}
+a:hover{
+    color:#ffa900;
+}
+/* +++++++++++++++++++++++++++++++
+   header
+   +++++++++++++++++++++++++++++++  */
+.header {
+    height: 100px;
+}
+.header .fixbar {
+    position: absolute;
+    width: 85%;
+    top: 35px;
+    padding: 0px 7% 0;
+    margin: 0;
+    background-color: #fff;
+    background-image: url("../img/fimg/line.png");
+    background-position: bottom;
+    background-repeat: repeat-x;
+}
+.header.fixed .fixbar {
+    position: fixed;
+    top: 0px;
+}
+.header_menu {
+    position: absolute;
+    top: 0px;
+    width: 85%;
+    padding: 0px 7% 0;
+    background-image: url("../img/fimg/line_top.jpg");
+    background-position: top;
+    background-repeat: repeat-x;
+}
+/* +++++++++++++++++++++++++++++++
+   pagebody
+   +++++++++++++++++++++++++++++++  */
+div#body-back{
+    padding: 40px 0 0;
+}
+div#body-main{
+    width:85%;
+    padding: 0 7% 0;
+    margin:auto;
+}
+/* +++++++++++++++++++++++++++++++
+   footer
+   +++++++++++++++++++++++++++++++  */
+div#footer{
+    margin-top: 50px;
+    clear:both;
+    padding-left:70px;
+    height:auto;
+    color:gold;
+    background-repeat: repeat-x;
+    background-color:#faf8f5;
+    z-index:1;
+}

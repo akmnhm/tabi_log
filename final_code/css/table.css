@@ -1,0 +1,184 @@
+/*********************
+// index_table for map
+/*********************/
+p {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis; /* Opera9,10対応 */
+}
+/***toptable************/
+table.toptble {
+    width: 700px;
+    border: solid 1px #666;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+table.toptble td.title {
+    width: 100%;
+    border-left: solid 2px #666;
+    margin: 5px 0 5px 10px;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    background: #ffffff;
+}
+table.toptble td.subtitle {
+    width: 100%;
+    border-left: solid 2px #666;
+    margin: 0 0 0 10px;
+    color: #333;
+    font-size: 13px;
+    font-weight: bold;
+    background: #ffffff;
+}
+table.toptble td.dashbar {
+    height: 1px;
+    width: 100%;
+    border-top: dashed 1px #000;
+}
+table.toptble td.solidbar {
+    height: 1px;
+    width: 100%;
+    border-top: solid 1px #000;
+}
+
+/***jptble**************/
+table.jpntble {
+    margin: 0 10px 0;
+    width: 300px;
+    border: none;
+/*    border-top: solid 1px #666;
+    border-bottom: solid 1px #666;
+    border-collapse: separate; */
+    border-spacing: 0 10px;
+    background: #f5f5f5;
+}
+ 
+table.jpntble th {
+    border-right: solid 2px #666;
+    margin: 0;
+    width: 15px;
+    padding: 0;
+    color: #333;
+    font-size: 13px;
+    font-weight: bold;
+}
+ 
+table.jpntble td.fst {
+    vertical-align: middle;
+    margin: 0;
+    text-align: center;
+    color: #333;
+    font-size: 12px;
+    width:12px;
+}
+
+table.jpntble td.bk {
+    vertical-align: middle;
+    margin: 0;
+    width: 12px;
+    text-align: center;
+    color: #333;
+    font-size: 12px;
+    border-left: solid 1px #bbb;
+}
+
+table.jpntble td.map {
+    margin: 10px;
+}
+
+table.jpntble td.bar {
+    height: 1px;
+    width: 100%;
+    border-top: solid 1px #34495e;
+}
+
+table.jpntble td.blk {
+    width: 100%;
+    border-left: solid 2px #666;
+    margin: 0;
+    padding: 0 0 0 5px;
+    color: #333;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/*********************
+// topic_table for index
+/*********************/
+table.topic {
+    margin: 10px 0 20px 0;
+    padding: 0 0 5px 10px;
+    width: 700px;
+    border: solid 1px #666;
+}
+table.topic td.line {
+    width: 100%;
+    height: 2px;
+    border-top: solid 2px #000;
+}
+/****************************
+// newestPost_table for index
+/****************************/
+table.newestpost {
+    border:none;
+}
+table.newest td.icon {
+    margin: 0 20px 0;
+}
+table.psttbl {
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px #D68E31;
+}
+table.psttbl td.place {
+
+}
+table.psttbl td.line {
+    width: 100%;
+    height: 2px;
+    border-top: solid 2px #e9caa1;
+}
+table.psttbl td.title {
+    font-size: 13px;
+    font-weight: bold;
+}
+table.psttbl td.content {
+    width: 500px;
+    font-size: 12px;
+    color:#777;
+}
+.btn {
+    font-family:'Verdana', 'Courier';
+    border: 1px solid #15aeec;
+    background-color: #49c0f0;
+    background-image: -webkit-linear-gradient(top, #49c0f0, #2cafe3);
+    background-image: linear-gradient(to bottom, #49c0f0, #2cafe3);
+    border-radius: 4px;
+    color: #fff;
+    line-height: 50px;
+    -webkit-transition: none;
+    transition: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    padding: 10px 40px;
+}
+.btn:hover {
+    border:1px solid #1090c3;
+    background-color: #1ab0ec;
+    background-image: -webkit-linear-gradient(top, #1ab0ec, #1a92c2);
+    background-image: linear-gradient(to bottom, #1ab0ec, #1a92c2);
+}
+.btn:active {
+    background: #1a92c2;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .2);
+    color: #1679a1;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, .5);
+}
+
+table.addspace {
+    padding-top: 120px;
+    color: white;
+    font-size:1.5em;
+}
