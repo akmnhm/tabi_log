@@ -1,0 +1,78 @@
+/****************************
+// userpg_table for top
+/****************************/
+#navi{
+}
+#navi .fixnavi {
+    position: absolute;
+}
+#navi.fixed {
+    position: fixed;
+    top: 60px;
+}
+table.head{
+    padding-bottom: 10px;
+    margin: 0 0 0 10px;
+}
+table.head td.icon {
+    padding: 10px;
+    box-shadow:10px 10px 10px rgba(0,0,0,0.2); 
+    text-align:center;
+}
+table.head td.line {
+    height:1px;
+    box-shadow:5px 5px 5px rgba(0,0,0,0.1); 
+}
+#menu {
+    margin: 0;
+    padding: 0;
+}
+td.name{
+    width:160px;
+    font-family:"Hiragino Kaku Gothic StdN";
+    font-size: 20pt;
+    text-align: center;
+}
+#menu td.button {
+    border-radius: 10px 5px 10px 5px;
+    font-size: 10pt;
+    text-align:center;
+    width:60px;
+    height: 60px;
+    padding:0;
+    margin:0;
+}
+#menu td.current{
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #d5defc), color-stop(1.00, #616a90));
+    background: -webkit-linear-gradient(#d5defc, #616a90);
+    background: -moz-linear-gradient(#d5defc, #616a90);
+    background: -o-linear-gradient(#d5defc, #616a90);
+    background: -ms-linear-gradient(#d5defc, #616a90);
+    background: linear-gradient(#d5defc, #616a90);
+}
+#menu td.not_curr{
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #ffffff), color-stop(1.00, #cccccc));
+    background: -webkit-linear-gradient(#ffffff, #cccccc);
+    background: -moz-linear-gradient(#ffffff, #cccccc);
+    background: -o-linear-gradient(#ffffff, #cccccc);
+    background: -ms-linear-gradient(#ffffff, #cccccc);
+    background: linear-gradient(#ffffff, #cccccc);
+}
+#menu td.touch_ncurr{
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #ffffe0), color-stop(1.00, #deb887));
+    background: -webkit-linear-gradient(#ffffe0, #deb887);
+    background: -moz-linear-gradient(#ffffe0, #deb887);
+    background: -o-linear-gradient(#ffffe0, #deb887);
+    background: -ms-linear-gradient(#ffffe0, #deb887);
+    background: linear-gradient(#ffffe0, #deb887);
+}
+#subtitle td.main{
+    font-size:10pt;
+}
+#head.fixed{
+    position:fixed;
+    top:10px;
+}
+#content{
+    padding-left:250px;
+}
