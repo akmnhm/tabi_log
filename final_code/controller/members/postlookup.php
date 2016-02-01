@@ -1,4 +1,4 @@
-$rtitle<?php
+<?php
 
 class Controller_Members_PostLookup extends Controller_Template
 {
