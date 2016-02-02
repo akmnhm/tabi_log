@@ -103,22 +103,20 @@ class Controller_Members_Post2 extends Controller_Template
             Upload::process($config);
             //検証
             if(Upload::is_valid()){
-	//	try {
                 //設定を元に保存
                 Upload::save();
                 //保存されたファイル名を変数に入れる
                 $getfile = Upload::get_files();
+                //var_dump($getfile); exit;
                 $upload_file = $getfile[0]['name'];
-	//	} catch(exception $e) { }
             }
             else{
                 //ファイルがアップロードできなかったとき、
-                //メッセージをフラッシュセッションにセット
-                Session::set_flash('uerr', 'ファイルが正しくアップできませんでした。');
+                //エラーメッセージをセット
+                $data['uerr'] ='ファイルが正しくアップできませんでした。';
                 //投稿を中断して入力画面にもどる。
-	        $this->template->title = "投稿画面";
-                $this->template->content = View::forge('members/post2', $data);       
-                //Response::redirect(View::forge('members/post2', $data, false));
+                //$this->template->title = "投稿画面";
+                //$this->template->content = View::forge('members/post2', $data);       
             }
         }
         
@@ -129,54 +127,51 @@ class Controller_Members_Post2 extends Controller_Template
             
             //ファイルがアップロードされてなかったらダメ
             if ($upload_file == '') {
-                $data['error'] = 'ファイルを選択してください。';
-                $this->template->content = View::forge('members/post2', $data);       
+                $data['error'] = '画像ファイルを選択してください。';
+                //$this->template->content = View::forge('members/post2', $data);       
+            }else{
+                /*------
+                  postされた各データをDBに保存
+                  ----------*/
+                
+                //各送信データを配列
+                $props = array(
+                    'uid' => $this->viewer_info['uid'], /* 仮 本当は投稿したヒトのIDが入る */
+                    'pref_num' => $data['input_pref'],
+                    'place' => $data['input_place'],
+                    'title' => $data['input_title'],
+                    'contents' => $data['input_content'],
+                    'category' => $data['input_category'],
+                    'tag1' => $data['input_tag1'],
+                    'tag2' => $data['input_tag2'],
+                    'rating' => $data['input_rating'],
+                    'image' => $upload_file,
+                    'datetime' => $time,
+                );
+                
+                $curtmax_pid = Model_Members_General2::getCurtMaxPid();
+                
+                Model_Members_General2::setNewPost($props['uid'], $props['pref_num'], $props['place'], $props['title'], $props['contents'], $props['category'], $props['tag1'], $props['tag2'], $props['rating'], $props['image'], $props['datetime']);
+                
+                
+                $max_pid = Model_Members_General2::getCurtMaxPid();
+                
+                if($curtmax_pid != $max_pid) {
+                    //投稿成功
+                    /* 本当はユーザの投稿りすとページに飛びたい */
+                    Response::redirect('members/postlookup/p/'.$max_pid);
+                }
             }
+        } //$val->run()ここまで
             
-            /*------
-              postされた各データをDBに保存
-              ----------*/
             
-            //各送信データを配列
-            $props = array(
-                'uid' => $this->viewer_info['uid'], /* 仮 本当は投稿したヒトのIDが入る */
-                'pref_num' => $data['input_pref'],
-                'place' => $data['input_place'],
-                'title' => $data['input_title'],
-                'contents' => $data['input_content'],
-                'category' => $data['input_category'],
-                'tag1' => $data['input_tag1'],
-                'tag2' => $data['input_tag2'],
-                'rating' => $data['input_rating'],
-                'image' => $upload_file,
-                'datetime' => $time,
-            );
-
-	    $curtmax_pid = Model_Members_General2::getCurtMaxPid();
-
-	    Model_Members_General2::setNewPost($props['uid'], $props['pref_num'], $props['place'], $props['title'], $props['contents'], $props['category'], $props['tag1'], $props['tag2'], $props['rating'], $props['image'], $props['datetime']);
-
-
-	    $max_pid = Model_Members_General2::getCurtMaxPid();
-
-	    if($curtmax_pid != $max_pid) {
-	      //投稿成功
-               /* 本当はユーザの投稿りすとページに飛びたい */
-               Response::redirect('members/postlookup/p/'.$max_pid);
-
-
-           }
-	} //$val->run()ここまで
-        
-        
-        //validationオブジェクトをviewに渡す
-        $data['val'] = $val;
-
-	
-        $this->template->title = "投稿画面";
-        $this->template->content = View::forge('members/post2', $data);       
+            //validationオブジェクトをviewに渡す
+            $data['val'] = $val;
+            
+            
+            $this->template->title = "投稿画面";
+            $this->template->content = View::forge('members/post2', $data);       
     	}
-
-
 }
-
+    
+    
