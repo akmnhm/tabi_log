@@ -203,13 +203,21 @@
       </td><td>
 	  
       <?php echo Form::file('upload', array('class'=>'span4')); ?> 
+      <!-- ファイルが選択されていない場合のエラー -->
       <error>
-    <?php if(isset($error)): ?>
-    <?php echo $error; ?>
-    <?php endif; ?></error>
+	<?php if(isset($error)): ?>
+	<?php echo $error; ?>
+	<?php endif; ?></error>
+     <!-- ファイルが画像ファイルでない場合のエラー -->
+     <error>
+       <?php if(isset($uerr)): ?>
+       <?php echo $uerr; ?>
+       <?php endif; ?>
+     </error>
     <!--
 	画像アップロードフォームend
       -->
+
 </td></tr><tr><td align="center" colspan="2">
     <!--
 	submitボタン
