@@ -59,32 +59,12 @@ EOM;
 	 from review r, users u
 	 where r.pid = '$selected_pid'
 	 and u.id = r.uid;
+	 order by r.datetime 
 EOM;
       $query = DB::query($sql);
       return $query->execute()->as_array();
       }
 
-
-      // for result pages
-      public static function getPrefPostHeader($selected_pref_num) {
-      $sql=<<<EOM
-	select p.pid as pid, p.place as place,
-	p.image as image,
-	p.title as title, c.cate_name as category,
-	tag1.tag_name as tag1, tag2.tag_name as tag2,
-	p.rating as rating,
-	pref.pref_name as prefecture,
-	pref.pref_num as pref_num
-	from post p, category c, tag tag1, tag tag2, prefecture pref
-	where p.pref_num = '$selected_pref_num'
-	and p.category = c.cate_num
-	and p.tag1 = tag1.tag_num
-	and p.tag2 = tag2.tag_num
-	and p.pref_num = pref.pref_num
-EOM;
-      $query = DB::query($sql);
-      return $query->execute()->as_array();
-      }
 
       public static function countIkitai($selected_pid) {
       $sql=<<<EOM

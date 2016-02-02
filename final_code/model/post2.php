@@ -1,52 +1,32 @@
 <?php
-class Controller_Members_Post2 extends Controller_Template
+class Controller_Members_Post2 extends Controller
 {
-
-	public $viewer_info = array();
-	public $msg = null;
-
-   	public function before()
-	{
-	parent::before();
-        $this->viewer_info = array();
-	
-	if(!Auth::check()) {
-
-	  Response::redirect('members');
-  	  // login画面に戻る。
-	} else {
-	  $this->viewer_info['name'] = Auth::get_screen_name();
-	  $this->viewer_info['uid'] = Auth::get_user_id()[1];
-	}
-    }
-
     public function action_index()
     {
-	$data = array();
-
-	$prefectures = Model_Members_General2::findall_pref();
-	$pref_op = array();
-	$pref_op[''] = "-----"; //未選択の場合の値
-	foreach ($prefectures as $pref) {
-		$pref_op[$pref['id']] = $pref['name'];
-	}
-	$data['prefs'] = $pref_op;
-
-	$categories = Model_Members_General2::findall_cate();
-	$cate_op = array();
-	$cate_op[''] = "-----"; //未選択の場合の値
-	foreach ($categories as $cate) {
-		$cate_op[$cate['id']] = $cate['name'];
-	}
-	$data['categories'] = $cate_op;
-
-	$tags = Model_Members_General2::findall_tag();
-	$tag_op = array();
-	$tag_op[''] = "-----";  //未選択の場合の値
-	foreach ($tags as $tag) {
-		$tag_op[$tag['id']] = $tag['name'];
-	}
-	$data['tags'] = $tag_op;        
+        //ビューに渡すデータの配列を初期化
+        $data = array();
+        //県のセレクト用のオプション配列の作成
+        $prefectures = Model_Prefecture::find('all');
+        $pref_op = array();
+        foreach ($prefectures as $pref) {
+            $pref_op[$pref->pref_num] = $pref->pref_name;
+        }
+        $data['prefs'] = $pref_op;
+        //カテゴリのチェックボックス用のオプション配列の作成
+        $categories = Model_Category::find('all');
+        $catego_op = array();
+        foreach ($categories as $catego){
+            $catego_op[$catego->cate_num] = $catego->cate_name;
+        }
+        $data['categories'] = $catego_op;
+        //タグのセレクト用のオプション配列の作成
+        $tags = Model_Tag::find('all');
+        $tag_op = array();
+        foreach ($tags as $tag){
+            $tag_op[$tag->tag_num] = $tag->tag_name;
+        }
+        $data['tags'] = $tag_op;
+        
         
         if (Input::method()=='POST'){
             /*-------
@@ -96,28 +76,25 @@ class Controller_Members_Post2 extends Controller_Template
         if(Input::file('upload.name')){
             //アップロード用初期設定
             $config = array(
-                'path' => DOCROOT.DS.'/assets/img/pimg',
+                'path' => DOCROOT.DS.'/assets/img/uimg',
                 'ext_whitelist' => array('img', 'jpg', 'jpeg', 'gif', 'png'),
             );
             //アップロード基本プロセス
             Upload::process($config);
             //検証
             if(Upload::is_valid()){
-	//	try {
                 //設定を元に保存
                 Upload::save();
                 //保存されたファイル名を変数に入れる
                 $getfile = Upload::get_files();
                 $upload_file = $getfile[0]['name'];
-	//	} catch(exception $e) { }
             }
             else{
                 //ファイルがアップロードできなかったとき、
                 //メッセージをフラッシュセッションにセット
                 Session::set_flash('uerr', 'ファイルが正しくアップできませんでした。');
                 //投稿を中断して入力画面にもどる。
-	        $this->template->title = "投稿画面";
-                $this->template->content = View::forge('members/post2', $data);       
+                return View::forge('members/post2', $data, false);
                 //Response::redirect(View::forge('members/post2', $data, false));
             }
         }
@@ -130,7 +107,7 @@ class Controller_Members_Post2 extends Controller_Template
             //ファイルがアップロードされてなかったらダメ
             if ($upload_file == '') {
                 $data['error'] = 'ファイルを選択してください。';
-                $this->template->content = View::forge('members/post2', $data);       
+                return View::forge('members/post2', $data);
             }
             
             /*------
@@ -139,7 +116,7 @@ class Controller_Members_Post2 extends Controller_Template
             
             //各送信データを配列
             $props = array(
-                'uid' => $this->viewer_info['uid'], /* 仮 本当は投稿したヒトのIDが入る */
+                'uid' => 1, /* 仮 本当は投稿したヒトのIDが入る */
                 'pref_num' => $data['input_pref'],
                 'place' => $data['input_place'],
                 'title' => $data['input_title'],
@@ -151,32 +128,27 @@ class Controller_Members_Post2 extends Controller_Template
                 'image' => $upload_file,
                 'datetime' => $time,
             );
-
-	    $curtmax_pid = Model_Members_General2::getCurtMaxPid();
-
-	    Model_Members_General2::setNewPost($props['uid'], $props['pref_num'], $props['place'], $props['title'], $props['contents'], $props['category'], $props['tag1'], $props['tag2'], $props['rating'], $props['image'], $props['datetime']);
-
-
-	    $max_pid = Model_Members_General2::getCurtMaxPid();
-
-	    if($curtmax_pid != $max_pid) {
-	      //投稿成功
-               /* 本当はユーザの投稿りすとページに飛びたい */
-               Response::redirect('members/postlookup/p/'.$max_pid);
-
-
-           }
-	} //$val->run()ここまで
+            //モデルオブジェクト作成
+            $new = Model_Post::forge();
+            $new->set($props);
+            
+            //データを保存する
+            if(!$new->save()){
+                //保存失敗
+                $data['save'] = '正しく投稿できませんでした。';
+            }else{
+                //保存成功
+                /* 本当はユーザの投稿りすとページに飛びたい */
+                Response::redirect('members/top');
+            }
+                
+        } //$val->run()ここまで
         
         
         //validationオブジェクトをviewに渡す
         $data['val'] = $val;
-
-	
-        $this->template->title = "投稿画面";
-        $this->template->content = View::forge('members/post2', $data);       
-    	}
-
-
+        
+       
+        return View::forge('members/post2', $data, false);
+    }
 }
-

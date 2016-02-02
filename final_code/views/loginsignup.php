@@ -34,7 +34,7 @@
 	      </tr><tr><td>
 		  <?php echo Form::label('pass', 'password'); ?></td>
 		<td>
-		  <?php echo Form::input('password'); ?>
+		  <?php echo Form::password('password'); ?>
 		</td>
 	      </tr><tr>
 		<td colspan="2" align="center">
@@ -64,7 +64,7 @@
 	      </tr><tr><td>
 		  <?php echo Form::label('pass', 'new_pass'); ?></td>
 		<td>
-		  <?php echo Form::input('new_pass'); ?>
+		  <?php echo Form::password('new_pass'); ?>
 		</td>
 	      </tr><tr>
 		<td colspan="2" align="center">

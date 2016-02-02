@@ -1,0 +1,19 @@
+td.rank1 {
+    border-right: dashed 1px #000;
+    padding: 0 20px 0 30px;
+    height: 200px;
+    width: 230px;
+}
+td.rank2 {
+    border-bottom: dashed 1px #000;
+    padding: 0 20px 0 30px;
+}
+td.rank3 {
+    padding: 0 20px 0 30px;
+}
+td.title {
+    font-weight: bold;
+}
+table.rank {
+    width: 650px;
+}

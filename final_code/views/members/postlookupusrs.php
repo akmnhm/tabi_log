@@ -8,8 +8,8 @@
     <table id="midashi"><tr><td class="title">
 	  <?php echo $place ?>
 	  (<?php echo Html::anchor("members/giver/prefposts/".$pref_num, $prefecture); ?>)</td>
-	</td><td>評価:<?php echo $rating; ?></td>
-	<td><table class="counttbl"><tr><td>行きたい: <?php echo $ikitai; ?></td></tr>
+	</td><td valign="bottom" class="rating">評価:<?php echo $rating; ?></td>
+	<td valign="bottom"><table class="counttbl"><tr><td>行きたい: <?php echo $ikitai; ?></td></tr>
 	    <tr><td>行った: <?php echo $itta; ?></td></table>
 	</td></tr><tr><td class="line" colspan="3"></td>
       <tr><td colspan="1">category: <?php echo $category; ?>

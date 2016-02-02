@@ -139,10 +139,20 @@ class Controller_Members_Userpg_Myself extends Controller_Template
     
     if(isset($_POST['ch_name'])){
         //ユーザ名変更を試みる
-        $newname = Input::post('uname');
-        $data['newname'] = $newname;
-        Model_Members_General2::setUname($uid, $newname);
-        $uname = $newname;
+	//Validationオブジェクト生成
+	$val = Validation::forge();
+	//フォームのルール設定
+	$val->add('uname', 'ユーザ名')
+            ->add_rule('valid_string', array('alpha', 'numeric', 'dashes', 'dots', 'punctuation', 'utf8'));
+	//Validationチェック
+	if($val->run()){
+		$newname = Input::post('uname');
+        	$data['newname'] = $newname;
+        	Model_Members_General2::setUname($uid, $newname);
+        	$uname = $newname;
+	}
+	//Validationオブジェクトをviewに渡す
+	$data['val'] = $val;
     }
     if(isset($_POST['ch_image'])){
         //アイコン画像変更を試みる

@@ -75,7 +75,7 @@
 	<!-- usermenu ************************ -->
 	<div id="navi">
 	  <div class="fixnavi">
-	    <form action="http://localhost/members/search" accept-charset="utf-8" method="post"> 
+	    <?php echo Form::open("http://192.168.12.19/members/search"); ?>
 	    <fieldset>
 	      <table class="mnsearchtbl">
 		<tr>
@@ -143,7 +143,15 @@
 			  } else { $input_7 = null; }
 			  $rate_op = array(''=>"---", 1=>1,2=>2,3=>3,4=>4,5=>5);
 		    echo Form::select('rate', $input_7, $rate_op); ?></td></tr>
-		<tr><tr><td class="line"></td></tr><tr>
+		<tr><tr><td class="line"></td>
+		</tr><tr>
+		  <td class="sub odd"><?php echo Form::label('ユーザー', 'usr'); ?></td>
+		</tr>
+		<tr><td align="center">
+		    <?php if(isset($lex['usr'])) {
+			  $input_8 = $lex['usr'];
+			  } else { $input_8 = null; }
+		    echo Form::select('usr', $input_8, $users); ?></td></tr><tr>
 		  <td align="center">
 		    <input name="search" value="検索する" type="submit" id="search" class="btn" /></td>
 		</tr>
@@ -159,14 +167,14 @@
 	</div>
       </div>
     </div>
-     <div id="footer">
+     <div id ="footer">
        <table style="width: 80%; font-size:8pt; border-spacing:5px; text-align:center; margin:auto 20px;"><tr>
 	 <td style="font-weight:bold;">管理者名</td>
 	 <td style="font-weight:bold;">ひとこと</td>
 	 <td style="font-weight:bold;">Twitter</td></tr>
-	 <tr><td>まつはる(harukam)</td><td>旅好きの陰湿人間</td><td>@hogehoge_0416</td></tr>
-	 <tr><td>まりこ(mariko)</td><td>やまとみなのみちみなわすれそ</td><td>@rikkey424</td></tr>
-	 <tr><td>あや(aya)</td><td>アンチfacebook!</td><td>@hogehoge_0416 /非推奨</td></tr></table>
+	 <tr><td>まつはる(<?php echo Html::anchor("members/userpg/top/5/ikitai","harukam"); ?>)</td><td>旅好きの陰湿人間!!!!</td><td>@hogehoge_0416</td></tr>
+	 <tr><td>まりこ(<?php echo Html::anchor("members/userpg/top/2/ikitai","mariko"); ?>)</td><td>やまとをみなのみちなわすれそ</td><td>@rikkie424</td></tr>
+	 <tr><td>あや(<?php echo Html::anchor("members/userpg/top/3/ikitai","aya"); ?>)</td><td>アンチfacebook!</td><td>---</td></tr></table>
     </div>
 
   </body>

@@ -2,11 +2,12 @@
 // index_table for map
 /*********************/
 omitt {
-    width: 210px;
-    white-space: nowrap;
-    overflow: hidden;
+    width: 200px;
+    overflow : hidden;
     text-overflow: ellipsis;
-    -o-text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 /*    width: 160px;
     overflow : hidden;
     text-overflow: ellipsis;
@@ -62,9 +63,11 @@ table.mini {
     border-spacing: 0;
     border-radius: 5px;
 }
+table.mini td.place {
+    padding-left: 10px;
+}
 table.minitop {
-    padding: 1px 0 10px 10px;
-    height: 120px;
+    padding: 1px 0 0px 10px;
 }
 table.minitop th.icon {
     padding: 2px;
@@ -80,6 +83,10 @@ table.mini td.context{
     padding: 5px 0 10px 5px;
     background-color: white;
     border-radius: 0 0 5px 5px;
+        font-size: 10pt;
+}
+table.mini table.tags {
+    padding-left: 12px;
 }
 table.icon {
     border-spacing: 0;

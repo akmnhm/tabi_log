@@ -25,7 +25,25 @@ class Controller_Members_Top extends Controller_Template
 
 	$this->template->title = '旅ログ';
 	$this->template->viewer_name = $this->viewer_info['name'];
-	$this->template->content = View::forge('members/index', $this->viewer_info);
+	$data = array();
+	$itta_ret = Model_Members_General2::takeIttaTop3();
+	$ikitai_ret = Model_Members_General2::takeIkitaiTop3();
+
+	$j = 1;
+	foreach($itta_ret as $oneset ){
+	 $data['itta']["$j"] = array();
+	 $data['itta']["$j"]['post'] =  Model_Members_General2::getRankingTop($oneset['pid']); 
+	 $data['itta']["$j"]['count'] = $oneset['count'];
+	 $j ++;
+	}
+	$j = 1;
+	foreach($ikitai_ret as $oneset ){
+	 $data['ikitai']["$j"] = array();
+	 $data['ikitai']["$j"]['post'] =  Model_Members_General2::getRankingTop($oneset['pid']); 
+	 $data['ikitai']["$j"]['count'] = $oneset['count'];
+	 $j ++;
+	}
+	$this->template->content = View::forge('members/index', $data);
 	}
 
 

@@ -8,8 +8,8 @@
     <table id="midashi"><tr><td class="title">
 	  <?php echo $place ?>
 	  (<?php echo Html::anchor("members/giver/prefposts/".$pref_num, $prefecture); ?>)</td>
-	</td><td>評価:<?php echo $rating; ?></td>
-	<td><table class="counttbl"><tr><td>行きたい: <?php echo $ikitai; ?></td></tr>
+	</td><td valign="bottom" class="rating">評価:<?php echo $rating; ?></td>
+	<td valign="bottom"><table class="counttbl"><tr><td>行きたい: <?php echo $ikitai; ?></td></tr>
 	    <tr><td>行った: <?php echo $itta; ?></td></table>
 	</td></tr><tr><td class="line" colspan="3"></td>
       <tr><td colspan="1">category: <?php echo $category; ?>
@@ -36,32 +36,32 @@
     <!-- main -->
     <table id="post">
       <tr>
-	<th class="photo" rowspan="2">
+	<th class="photo" rowspan="2" valign="top">
 		<?php 
 		   $options = array('width' => '300',
 		'height' => '400');
 		echo Asset::img("pimg/".$image, $options); ?>
 	</th>
-	<td>
-	  <!-- user information -->
-	  <table class="user"><tr><td>
-		<?php 
-		   $options = array('width' => '50',
-		'height' => '50');
-		echo Asset::img("uimg/".$icon, $options); ?>
-	      </td><td><?php echo Html::anchor("members/userpg/top/".$wid."/ikitai", $writer); ?></td>
-	    </tr><tr><td colspan="2">
-		<?php echo date("Y/n/j H:i", $datetime) ?></td></tr>
-	  </table>
-	  <!-- user information -->
-	</td>
-      </tr>
-      <tr>
-	<td><div id="content">
-	    <?php echo $contents ?>
-	</div></td>
-      </tr>
+	<td valign="top">
+	  <table><tr><td>
+		<!-- user information -->
+		<table class="user"><tr><td>
+		      <?php 
+			 $options = array('width' => '50',
+		      'height' => '50');
+		      echo Asset::img("uimg/".$icon, $options); ?>
+		    </td><td><?php echo Html::anchor("members/userpg/top/".$wid."/ikitai", $writer); ?></td>
+		  </tr><tr><td colspan="2">
+		      <?php echo date("Y/n/j H:i", $datetime) ?></td></tr>
+		</table>
+		<!-- user information -->
+	    </td></tr><tr>		
+	      <td valign="top"><div id="content">
+		  <?php echo $contents ?>
+	      </div></td></tr></table>
+      </td></tr>
     </table>
+    </td></tr></table>
     <!-- main -->
 
     <br>

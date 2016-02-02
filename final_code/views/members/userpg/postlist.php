@@ -35,15 +35,15 @@
 			       $options = array('width' => '50', 'height' => '50');
 			    echo Asset::img("pimg/".$post['image'], $options); ?>
 		      </td></tr></table>
-		    </th><td><a href="#"><romitt>
-	<?php echo Html::anchor("members/postlookup/p/".$post['pid'], $post['place']); ?>
-	(<?php echo Html::anchor("members/giver/prefposts/".$post['pref_num'], $post['prefecture']) ; ?>)</romitt></a></td></tr>
-		  <tr><td valign="top"><romitt><?php echo $post['category'];?></romitt></td></tr>
-		  <tr><td valign="top"><romitt><?php echo $post['tag1'];?>, <?php echo $post['tag2'];?></romitt></td></tr>
-		  <tr><td valign="top"><?php echo $post['rating'];?></td></tr>
-	    </table></td></tr><tr>
+		    </th><td class="place">
+	<?php echo Html::anchor("members/postlookup/p/".$post['pid'], $post['place']); ?><br>
+	(<?php echo Html::anchor("members/giver/prefposts/".$post['pref_num'], $post['prefecture']) ; ?>)</td></tr></table></td></tr>
+		  <tr><td>
+		      <table class="tags"><tr><td><?php echo $post['category'];?></td></tr><tr>
+	    <td><?php echo $post['tag1'];?>, <?php echo $post['tag2'];?></td></tr>
+		  <tr><td>評価数: <?php echo $post['rating'];?></td></tr></table></td></tr>
 	      <td class="line"></td></tr><tr>
-	      <td class="context"><omitt><?php echo $post['title']; ?></omitt></td></tr></table>
+	      <td class="context"><?php echo $post['title']; ?></td></tr></table>
 	     <!--  ----- -->
 	     <?php $count = $count + 1; 
 	      if($count % 2 != 0): echo "</td><td>";

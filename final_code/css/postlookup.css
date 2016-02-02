@@ -43,6 +43,7 @@ body {
 #midashi td.title{
     font-family:"Hiragino Kaku Gothic StdN";
     font-size: 20pt;
+    width: 360px;
 }
 #midashi td.line{
     width: 100%;
@@ -61,6 +62,7 @@ body {
 }
 #content {
     width: 370px;
+    padding: 20px 0 0 10px;
     font-size: 11pt;
 }
 /* postlookuprev */
@@ -100,6 +102,7 @@ table.reviewmain td.content{
     font-size: 10pt;
     padding-bottom: 20px;
 }
+
 table.counttbl {
     font-size: 10pt;
     border-collapse: collapse;

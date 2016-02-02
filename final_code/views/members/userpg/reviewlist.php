@@ -34,16 +34,17 @@
 			       $options = array('width' => '50', 'height' => '50');
 			    echo Asset::img("uimg/".$review['icon'], $options); ?>
 		      </td></tr></table>
-		    </th><td class="place"><romitt>
-			<?php echo Html::anchor("members/postlookup/p/".$review['pid'], $review['place']); ?>
-			(<?php echo Html::anchor("members/giver/prefposts/".$review['pref_num'], $review['prefecture']) ; ?>)</romitt></td>
+		    </th><td class="place">
+			<?php echo Html::anchor("members/postlookup/p/".$review['pid'], $review['place']); ?><br>
+			(<?php echo Html::anchor("members/giver/prefposts/".$review['pref_num'], $review['prefecture']) ; ?>)
+		    </td>
 		  </tr><tr><td><?php echo $review['category']; ?></td>
-		  </tr><tr><td><?php echo $review['tag1'];?>, <?php echo $review['tag2'];?></td>
-		  </tr><tr><td class="name"><?php echo $name ?>
-	    </td></tr></table></td><tr><td><table class="reviewmain"><tr><td>
+      </tr></tr></table></td><tr><td align="center">
+	  <?php echo $review['tag1'];?>, <?php echo $review['tag2'];?></td></tr><tr><td>
+	<table class="reviewmain"><tr><td>
 		      <table width="100%"><tr><td class="rating"><?php echo $review['rrating']; ?>
-		  </td></table></td></tr><tr><td class="content"><omitt>
-	<?php echo Html::anchor("members/postlookup/p/".$review['pid']."/review", $review['comment']); ?></omitt>
+		  </td></table></td></tr><tr><td class="content">
+	<?php echo Html::anchor("members/postlookup/p/".$review['pid']."/review", $review['comment']); ?>
 	  </td></tr></table></td></tr></table>  
 	     <!--  ----- -->
 	     <?php $count = $count + 1; 

@@ -31,6 +31,15 @@ class Controller_Members_Giver extends Controller_Template
 
 	$data['tags'] = $tag_op;
 
+	$users = Model_Members_General2::findall_users();
+	$user_op = array();
+	$user_op[''] = "-----";  //未選択の場合の値
+	foreach ($users as $user) {
+		$user_op[$user['id']] = $user['name'];
+	}
+
+	$data['users'] = $user_op;
+
 	return $data;
 	}
 
@@ -38,7 +47,7 @@ class Controller_Members_Giver extends Controller_Template
 
 	public function action_search($lex)
 	{
-	$table = array ('prefposts' => "都道府県" , 'cate' => "カテゴリ", 't1' => "タグ", 't2' => "タグ", 'rate' => "評価値",  'ikitai'=> "行きたい人数", 'itta' => "行った人数" );
+	$table = array ('prefposts' => "都道府県" , 'cate' => "カテゴリ", 't1' => "タグ", 't2' => "タグ", 'rate' => "評価値",  'ikitai'=> "行きたい人数", 'itta' => "行った人数", 'usr' => "投稿ユーザ");
 
 	$sentence = "";
 	$jouken = "";
@@ -83,6 +92,10 @@ class Controller_Members_Giver extends Controller_Template
 	   $jouken = $jouken. " and (select count(*) from itta where p.pid = itta.pid) >=".$lex['itta'];
 	   $sentence = $sentence.$table['itta']."「".$lex['itta']."以上」";
 	}
+ 	if(isset($lex['usr'])) {
+	   $jouken = $jouken. " and p.uid = ".$lex['usr'];
+	   $sentence = $sentence.$table['usr']."「".Model_Members_Userinfo::getUsername($lex['usr'])."」";
+	}
 
 	$this->template = View::forge('members/result_template');
 	$this->template->title = "旅ログ - 検索結果";
@@ -100,6 +113,7 @@ class Controller_Members_Giver extends Controller_Template
 	$this->template->prefs = $ret['prefs'];
 	$this->template->cates = $ret['cates'];
 	$this->template->tags = $ret['tags'];
+	$this->template->users = $ret['users'];
 	$this->template->lex = $lex;
 
 	$this->template->content = View::forge('members/result', $data);
@@ -113,7 +127,7 @@ class Controller_Members_Giver extends Controller_Template
 
 	public function router($param1, $uri_params) 
 	{
-	$table = array ('prefposts' => 'prefposts' ,'cate' => 'cate', 't1' => 't1', 't2' => 't2', 'rate' => 'rate', 'ikitai' => 'ikitai', 'itta' => 'itta' );
+	$table = array ('prefposts' => 'prefposts' ,'cate' => 'cate', 't1' => 't1', 't2' => 't2', 'rate' => 'rate', 'ikitai' => 'ikitai', 'itta' => 'itta', 'usr' => 'usr' );
 
 //	try {
           $lex = array();

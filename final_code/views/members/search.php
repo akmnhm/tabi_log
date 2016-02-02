@@ -84,6 +84,14 @@
 		  } else { $input_7 = null; }
 		$rate_op = array(''=>"---", 1=>1,2=>2,3=>3,4=>4,5=>5);
 		echo Form::select('rate', $input_7, $rate_op); ?></td>
+      </tr><tr><td class="line" colspan="3"></td>
+      </tr><tr>
+	<td class="sub odd"><?php echo Form::label('ユーザ', 'usr'); ?></td>
+	<td class="btw"></td>
+	<td><?php if(isset($user)) {
+		    $input_8 = $user;
+		  } else { $input_8 = null; }
+		echo Form::select('usr', $input_8, $users); ?></td>
       </tr><tr><td colspan="3" height="30px;"></td>
       </tr><tr><td colspan="3" align="center">
 	<input name="search" value="検索する" type="submit" id="search" class="btn" /></td>

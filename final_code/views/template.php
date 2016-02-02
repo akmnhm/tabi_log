@@ -60,9 +60,9 @@
 	 <td style="font-weight:bold;">管理者名</td>
 	 <td style="font-weight:bold;">ひとこと</td>
 	 <td style="font-weight:bold;">Twitter</td></tr>
-	 <tr><td>まつはる(harukam)</td><td>旅好きの陰湿人間</td><td>@hogehoge_0416</td></tr>
-	 <tr><td>まりこ(mariko)</td><td>やまとみなのみちみなわすれそ</td><td>@rikkey424</td></tr>
-	 <tr><td>あや(aya)</td><td>アンチfacebook!</td><td>@hogehoge_0416 /非推奨</td></tr></table>
+	 <tr><td>まつはる(<?php echo Html::anchor("members/userpg/top/5/ikitai","harukam"); ?>)</td><td>旅好きの陰湿人間!!!!</td><td>@hogehoge_0416</td></tr>
+	 <tr><td>まりこ(<?php echo Html::anchor("members/userpg/top/2/ikitai","mariko"); ?>)</td><td>やまとをみなのみちなわすれそ</td><td>@rikkie424</td></tr>
+	 <tr><td>あや(<?php echo Html::anchor("members/userpg/top/3/ikitai","aya"); ?>)</td><td>アンチfacebook!</td><td>---</td></tr></table>
     </div>
 
   </body>

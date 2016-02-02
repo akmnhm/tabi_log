@@ -1,6 +1,7 @@
 /*********************
 // index_table for map
 /*********************/
+/*
 omitt {
     width: 200px;
     overflow : hidden;
@@ -8,11 +9,6 @@ omitt {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-/* 
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   -o-text-overflow: ellipsis; /* Opera9,10対応 */
 }
 romitt {
     width: 100px;
@@ -22,6 +18,7 @@ romitt {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
 }
+*/
 /***toptable************/
 table.topic {
     margin: 35px 0 10px 0;

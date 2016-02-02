@@ -3,9 +3,9 @@ class Model_Members_General2 extends Model
 {
 	public static function getPostHeaderJoken($jouken){
        $sql=<<<EOM
-	select p.pid as pid, p.place as place,
+	select p.pid as pid, left(p.place, 8) as place,
 	p.image as image,
-	p.title as title, cate.cate_name as category,
+	left(p.title, 15) as title, cate.cate_name as category,
 	tag1.tag_name as tag1, tag2.tag_name as tag2,
 	p.rating as rating,
 	pref.pref_name as prefecture,
@@ -46,6 +46,15 @@ EOM;
       $sql=<<<EOM
        select tag_num as id, tag_name as name
        from tag
+EOM;
+      $query = DB::query($sql);
+      return $query->execute()->as_array();
+      }
+
+      public static function findall_users() {
+      $sql=<<<EOM
+       select id as id, username as name
+       from users
 EOM;
       $query = DB::query($sql);
       return $query->execute()->as_array();
@@ -167,6 +176,42 @@ EOM;
           return $sql;
       }
 
+
+      public static function takeIkitaiTop3() {
+      $sql=<<<EOM
+       select pid, count(pid) as count from ikitai
+        group by pid order by count desc limit 3;
+EOM;
+      $query = DB::query($sql);
+      return $query->execute()->as_array();
+      }
+
+      public static function takeIttaTop3() {
+      $sql=<<<EOM
+       select pid, count(pid) as count from itta
+        group by pid order by count desc limit 3;
+EOM;
+      $query = DB::query($sql);
+      return $query->execute()->as_array();
+      }
+
+
+      public static function getRankingTop($pid) {
+      $sql=<<<EOM
+       select u.id as uid, u.username as uname, p.pid as pid,
+       left(p.place, 7) as place, p.image as image, left(p.title, 15) as title, 
+       pref.pref_num as pref_num,
+       pref.pref_name as prefecture
+       from post p, users u, prefecture pref
+       where p.pid = '$pid'
+       and p.uid = u.id
+       and pref.pref_num = p.pref_num
+       limit 1;
+EOM;
+     $query = DB::query($sql);
+     $result = $query->execute()->as_array();
+     return array_shift($result);
+    }
 }
 
 ?>

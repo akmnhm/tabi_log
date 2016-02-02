@@ -30,8 +30,8 @@ EOM;
 	public static function getPostHeader($selected_uid){
 	 $sql=<<<EOM
 	  select p.pid as pid,
-	  p.place as place, pref.pref_num as pref_num,
-	  p.title as title,
+	  left(p.place, 8) as place, pref.pref_num as pref_num,
+	  left(p.title, 15) as title,
 	  pref.pref_name as prefecture,
 	  cate.cate_name as category,
 	  tag1.tag_name as tag1,
@@ -44,7 +44,8 @@ EOM;
 	  and cate.cate_num = p.category
 	  and p.tag1 = tag1.tag_num
 	  and p.tag2 = tag2.tag_num
-	  and pref.pref_num = p.pref_num;
+	  and pref.pref_num = p.pref_num
+	  order by p.pref_num
 EOM;
 	$query = DB::query($sql);
 	return $query->execute()->as_array();
@@ -69,7 +70,7 @@ EOM;
 	and p.tag1 = tag1.tag_num
 	and p.tag2 = tag2.tag_num
 	and pref.pref_num = p.pref_num
-	  order by p.datetime desc 
+	order by p.datetime desc
 EOM;
 	$query = DB::query($sql);
 	return $query->execute()->as_array();	
@@ -87,7 +88,7 @@ EOM;
 	 tag1.tag_name as tag1,
 	 tag2.tag_name as tag2,
 	 r.rid as rid, r.title as rtitle, r.rating as rrating,
-	 r.comment as comment
+	 left(r.comment, 15) as comment
 	 from users u, post p, category cate,
 	 prefecture pref, review r, tag tag1, tag tag2
 	 where u.id = '$selected_uid'
@@ -95,8 +96,9 @@ EOM;
 	 and p.pid = r.pid
 	 and cate.cate_num = p.category
 	 and p.tag1 = tag1.tag_num
-	 and p.tag2 = tag2.tag_num	 
+	 and p.tag2 = tag2.tag_num
 	 and pref.pref_num = p.pref_num
+	 order by p.pref_num
 EOM;
 	$query = DB::query($sql);
 	return $query->execute()->as_array();
@@ -124,7 +126,7 @@ EOM;
 	public static function getIkitai($selected_uid) {
 	 $sql=<<<EOM
 	  select p.pid as pid,
-	  p.place as place, p.title as title,
+	  left(p.place, 8) as place, left(p.title, 15) as title,
 	  pref.pref_num as pref_num,
 	  pref.pref_name as prefecture,
 	  cate.cate_name as category,
@@ -150,7 +152,7 @@ EOM;
 	public static function getItta($selected_uid) {
 	 $sql=<<<EOM
 	  select p.pid as pid,
-	  p.place as place, p.title as title,
+	  left(p.place, 8) as place, left(p.title, 15) as title,
 	  pref.pref_num as pref_num,
 	  pref.pref_name as prefecture,
 	  tag1.tag_name as tag1, tag2.tag_name as tag2,

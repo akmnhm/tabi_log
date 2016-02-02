@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Members_Result Controller_Template
+class Controller_Members_Result extends Controller_Template
 {
 	public function action_index()
 	{	
@@ -31,8 +31,17 @@ class Controller_Members_Result Controller_Template
 
 	$data['tags'] = $tag_op;
 
+	$users = Model_Members_General2::findall_users();
+	$user_op = array();
+	$user_op[''] = "-----";  //未選択の場合の値
+	foreach ($users as $user) {
+		$user_op[$user['id']] = $user['name'];
+	}
 
-	$table = array(1=>'prefposts', 2=>'cate',  3=>'t1', 4=>'t2', 5=>'ikitai', 6=>'itta', 7=>'rate');
+	$data['users'] = $user_op;
+
+
+	$table = array(1=>'prefposts', 2=>'cate',  3=>'t1', 4=>'t2', 5=>'ikitai', 6=>'itta', 7=>'rate', 8=>'usr');
 
 	// フォーム投稿がある場合
 	if(isset($_POST['search'])){
@@ -44,9 +53,10 @@ class Controller_Members_Result Controller_Template
 	  $ret[5] = Input::post('ikitai');
 	  $ret[6] = Input::post('itta');
 	  $ret[7] = Input::post('rate');
+	  $ret[8] = Input::post('usr');
 
 	  $pass="";
-	  for($i = 1; $i<=7; $i++){
+	  for($i = 1; $i<=8; $i++){
 	   if($ret[$i] != null) {
 	     $pass=$pass.'/'.$table[$i].'/'.$ret[$i];
 	     $data[$table[$i]]=$ret[$i];

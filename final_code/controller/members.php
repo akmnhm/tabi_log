@@ -33,9 +33,14 @@ class Controller_Members extends Controller
 		$new_pass = $_POST['new_pass'];
 
 		try {
+		 $icons = array("default1.jpg", "default2.jpg", "default3.jpg", "default4.jpg");
+		 $count = count($icons);
+		 $random = rand(0, $count -1);
+
 		  Auth::create_user($new_uname, $new_pass, $new_uname."@tabi.com");
-		  Model_Members_General2::setProfile($new_uname, "default.jpg");
-       		 $msg = "signupに成功しました。loginして下さい。";  
+		  Model_Members_General2::setProfile($new_uname, $icons[$random]);
+		  
+       		 $msg = "signupに成功しました。loginして下さい。"; 
 
 		 } catch (Exception $e) {
 		   if ($new_uname != null && $new_pass != null) {
