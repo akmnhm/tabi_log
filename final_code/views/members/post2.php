@@ -1,179 +1,229 @@
-<?php
-class Controller_Members_Post2 extends Controller_Template
-{
+<html>
+  <head>
+    <style>
+      error{
+         color: #ff0000;
+         font-size: 9pt;
+      }
+      #form {
+         background-color: #ffffb7;
+         border-radius: 10px;
+         padding: 10px;
+      }
+      .label {
+         text-align: right;
+         font-size: 10pt;
+      }
+      .line {
+         padding: 0 10px;
+         width: 100%;
+         height:21px;
+         border-top: dashed 1px #7a7351;
+      }
+      .title {
+        text-align:center;
+      }
+    </style>
+  </head>
+  <body>
 
-	public $viewer_info = array();
-	public $msg = null;
+    <!--
+	ファイルアップロードのため、formタグにenctype="multipart/form-data"を指定
+      -->
+    <?php echo Form::open(array('enctype'=>'multipart/form-data', 'method'=>'post')); ?> 
 
-   	public function before()
-	{
-	parent::before();
-        $this->viewer_info = array();
-	
-	if(!Auth::check()) {
+    <table id="form"><tr><td colspan="2" class="title"><<旅先入力フォーム>></td>
+      </tr><tr><td class="line" colspan="2"></td></tr><tr><td class="label">    
+    <!-- 
+	 県名フォームstart
+      -->
+      <?php echo Form::label('県名', 'pref'); ?>*
+      </td><td>
+      <?php if(isset($input_pref)){$input_1 = $input_pref;}else{$input_1 = null;} ?>
+      <?php echo Form::select('pref', $input_1, $prefs); ?> 
+    <!-- 
+	 県名のエラー
+      -->
+    <error>
+    <?php if(isset($val) && $val->error('pref')): ?>
+    <?php echo $val->error('pref');?>
+    <?php endif;?></error>
 
-	  Response::redirect('members');
-  	  // login画面に戻る。
-	} else {
-	  $this->viewer_info['name'] = Auth::get_screen_name();
-	  $this->viewer_info['uid'] = Auth::get_user_id()[1];
-	}
-    }
+      </td></tr><tr><td>
+    <!-- 
+	 県名フォームend
+      -->
+    </td></tr><tr><td class="label">
 
-    public function action_index()
-    {
-	$data = array();
+    <!-- 
+	 場所フォームstart
+      -->
+      <?php echo Form::label('場所', 'place'); ?>*
+      </td><td>
+      <?php if(isset($input_place)){$input_2 = $input_place;}else{$input_2 = '';} ?>
+      <?php echo Form::input('place', $input_2, array('size'=>25)); ?> 
+    <!-- 
+	 場所のエラー
+      -->
+    <error>
+    <?php if(isset($val) && $val->error('place')): ?>
+    <?php echo $val->error('place');?>
+    <?php endif;?></error>
+    <!-- 
+	 場所フォームend
+      -->
 
-	$prefectures = Model_Members_General2::findall_pref();
-	$pref_op = array();
-	$pref_op[''] = "-----"; //未選択の場合の値
-	foreach ($prefectures as $pref) {
-		$pref_op[$pref['id']] = $pref['name'];
-	}
-	$data['prefs'] = $pref_op;
+    </td></tr><tr><td class="label">
 
-	$categories = Model_Members_General2::findall_cate();
-	$cate_op = array();
-	$cate_op[''] = "-----"; //未選択の場合の値
-	foreach ($categories as $cate) {
-		$cate_op[$cate['id']] = $cate['name'];
-	}
-	$data['categories'] = $cate_op;
+    <!-- 
+	 タイトルフォームstart
+      -->
+      <?php echo Form::label('タイトル', 'title')?>*
 
-	$tags = Model_Members_General2::findall_tag();
-	$tag_op = array();
-	$tag_op[''] = "-----";  //未選択の場合の値
-	foreach ($tags as $tag) {
-		$tag_op[$tag['id']] = $tag['name'];
-	}
-	$data['tags'] = $tag_op;        
+   </td><td>
+      <?php if(isset($input_title)){$input_3 = $input_title;}else{$input_3 = '';} ?>
+      <?php echo Form::input('title', $input_3, array('size'=>25)); ?> 
+    <!--
+	タイトルのエラー
+      -->
+    <error>
+    <?php if(isset($val) && $val->error('title')): ?>
+    <?php echo $val->error('title');?>
+    <?php endif;?></error>
+    <!-- 
+	 タイトルフォームend
+      -->
         
-        if (Input::method()=='POST'){
-            /*-------
-              ユーザが入力した値とその時の時刻を保持
-              --------*/
-            $data['input_pref'] = Input::post('pref');
-            $data['input_place'] = Input::post('place');
-            $data['input_title'] = Input::post('title');
-            $data['input_content'] = Input::post('content');
-            $data['input_category'] = Input::post('category');
-            $data['input_tag1'] = Input::post('tag1');
-            $data['input_tag2'] = Input::post('tag2');
-            $data['input_rating'] = Input::post('rating');
-            $time = Date::forge()->get_timestamp();
-        }
-        
-        /*--------
-          Validationの準備
-         ---------*/
-        //Validationオブジェクトを呼び出す
-        $val = Validation::forge();
-        
-        //フォームのルール設定
-        $val->add('pref', '県名')
-            ->add_rule('required');
-        $val->add('place', '場所')
-            ->add_rule('required')
-	    ->add_rule('max_length', 64);
-        $val->add('title', 'タイトル')
-            ->add_rule('required')
-	    ->add_rule('max_length', 64);
-        //->add_rule('max_length', 30)
-        $val->add('content', '記事内容')
-            ->add_rule('required');
-        //->add_rule('max_length', 200)
-        $val->add('category', 'カテゴリ')
-            ->add_rule('required');
-        $val->add('tag1', 'タグ１')
-            ->add_rule('required');
-        $val->add('tag2', 'タグ２')
-            ->add_rule('required');
-        $val->add('rating', '評価')
-            ->add_rule('required');
-        /*-----------
-          画像ファイルの入力があったらアップロード
-          ---------------*/
-        //データ保存用変数 初期化
-        $upload_file = '';
-        if(Input::file('upload.name')){
-            //アップロード用初期設定
-            $config = array(
-                'path' => DOCROOT.DS.'/assets/img/pimg',
-                'ext_whitelist' => array('img', 'jpg', 'jpeg', 'gif', 'png'),
-            );
-            //アップロード基本プロセス
-            Upload::process($config);
-            //検証
-            if(Upload::is_valid()){
-	//	try {
-                //設定を元に保存
-                Upload::save();
-                //保存されたファイル名を変数に入れる
-                $getfile = Upload::get_files();
-                $upload_file = $getfile[0]['name'];
-	//	} catch(exception $e) { }
-            }
-            else{
-                //ファイルがアップロードできなかったとき、
-                //エラーメッセージをセット
-		$data['uerr'] = 'ファイルを正しくアップロードできませんでした。';
-  		}
-        }
-        
-        
-                      
-        //Validationチェック
-        if($val->run()){
-            
-            //ファイルがアップロードされてなかったらダメ
-            if ($upload_file == '') {
-                $data['error'] = '画像ファイルを選択してください。';
-            } else { 
-            
-            /*------
-              postされた各データをDBに保存
-              ----------*/
-            
-            //各送信データを配列
-            $props = array(
-                'uid' => $this->viewer_info['uid'], 
-                'pref_num' => $data['input_pref'],
-                'place' => $data['input_place'],
-                'title' => $data['input_title'],
-                'contents' => $data['input_content'],
-                'category' => $data['input_category'],
-                'tag1' => $data['input_tag1'],
-                'tag2' => $data['input_tag2'],
-                'rating' => $data['input_rating'],
-                'image' => $upload_file,
-                'datetime' => $time,
-            );
+    </td></tr><tr><td class="label">
 
-	    $curtmax_pid = Model_Members_General2::getCurtMaxPid();
+    <!-- 
+	 記事内容フォームstart
+      -->
+    <?php echo Form::label('記事内容', 'content'); ?>*
 
-	    Model_Members_General2::setNewPost($props['uid'], $props['pref_num'], $props['place'], $props['title'], $props['contents'], $props['category'], $props['tag1'], $props['tag2'], $props['rating'], $props['image'], $props['datetime']);
+    </td><td>
+    <?php if(isset($input_content)){$input_4 = $input_content;}else{$input_4 = '';} ?>
+    <?php echo Form::textarea('content', $input_4, array('rows'=>15, 'cols'=>50))?>
 
+    <!--
+	記事のエラー
+      -->
+    <error>
+    <?php if(isset($val) && $val->error('content')): ?>
+    <?php echo "<br>".$val->error('content');?>
+    <?php endif;?></error>
+    <!-- 
+	 記事内容フォームend
+      -->
+    </td></tr><tr><td class="label">
+    <!-- 
+	 カテゴリフォームstart
+      -->
+      <?php echo Form::label('カテゴリ', 'category'); ?>*
 
-	    $max_pid = Model_Members_General2::getCurtMaxPid();
+    </td><td>
+    
+      <?php if(isset($input_category)){$input_5 = $input_category;}else{$input_5 = null;} ?>
+      <?php echo Form::select('category', $input_5, $categories); ?> 
+    <!-- 
+	 カテゴリが選択されていない場合のエラー
+      -->
+    <error>
+    <?php if(isset($val) && $val->error('category')): ?>
+    <?php echo $val->error('category');?>
+    <?php endif;?></error>
+    <!-- 
+	 カテゴリフォームend
+      -->
+        </td></tr><tr><td class="label">
+    <!-- 
+	 タグ1フォームstart
+      -->
+      <?php echo Form::label('タグ１', 'tag1'); ?>*
 
-	    if($curtmax_pid != $max_pid) {
-	      //投稿成功
-               /* ユーザの投稿りすとページに飛ぶ */
-               Response::redirect('members/postlookup/p/'.$max_pid);
-           }
+      </td><td>
 
-          }
-	} //$val->run()ここまで
-        
-        
-        //validationオブジェクトをviewに渡す
-        $data['val'] = $val;
+      <?php if(isset($input_tag1)){$input_6 = $input_tag1;}else{$input_6 = null;} ?>
+      <?php echo Form::select('tag1', $input_6, $tags); ?> 
+    <!--
+	タグ1のエラー
+      -->
+    <error>
+    <?php if(isset($val) && $val->error('tag1')): ?>
+    <?php echo $val->error('tag1');?>
+    <?php endif;?></error>
+    <!--
+	タグ1フォームend
+      -->
+        </td></tr><tr><td class="label">
+    <!--
+	タグ2フォームstart
+      -->
+      <?php echo Form::label('タグ２', 'tag2'); ?>*
 
-	
-        $this->template->title = "投稿画面";
-        $this->template->content = View::forge('members/post2', $data);       
-    	}
+      </td><td>
+      <?php if(isset($input_tag2)){$input_7 = $input_tag2;}else{$input_7 = null;} ?>
+      <?php echo Form::select('tag2', $input_7, $tags); ?>
+    <!--
+	タグ2のエラー
+      -->
+    <error>
+    <?php if(isset($val) && $val->error('tag2')): ?>
+    <?php echo $val->error('tag2');?>
+    <?php endif;?></error>
+    <!--
+	タグ2フォームend
+      -->
+    </td></tr><tr><td class="label">
+    <!--
+	評価フォームstart
+      -->
+      <?php echo Form::label('評価', 'rating'); ?>*
 
+      </td><td>
 
-}
+      <?php if(isset($input_rating)){$input_8 = $input_rating;}else{$input_8 = null;} ?>
+      <?php echo Form::select('rating', $input_8, array( '' => '---', 5=>5, 4=>4, 3=>3, 2=>2, 1=>1)); ?> 
+    <!-- 
+	 評価が選択されていない場合のエラー
+      -->
+    <error>
+    <?php if(isset($val) && $val->error('rating')): ?>
+    <?php echo $val->error('rating');?>
+    <?php endif;?></error>
+    <!--
+	評価フォームend
+      -->
+    </td></tr><tr><td>    
+    <!--
+	画像アップロードフォームstart
+      -->
+      <div class="label">画像アップロード*</div>
+      
+      </td><td>
+	  
+      <?php echo Form::file('upload', array('class'=>'span4')); ?>
+      <!-- ファイルが選択されていない場合のエラー -->
+      <error>
+	<?php if(isset($error)): ?>
+	<?php echo $error; ?>
+	<?php endif; ?></error>
+      <!--　ファイルが画像ファイルでない場合のエラー -->
+      <error>
+	<?php if(isset($uerr)): ?>
+	<?php echo $uerr; ?>
+	<?php endif; ?></error>
+    <!--
+	画像アップロードフォームend
+      -->
 
+</td></tr><tr><td align="center" colspan="2">
+    <!--
+	submitボタン
+      -->
+    <?php echo Form::submit('submit', '投稿', array('class'=>'btn btn-default')); ?> 
+   </td></tr></table> 
+    <?php echo Form::close(); ?> <br>
+    
+  </body>
+</html>
